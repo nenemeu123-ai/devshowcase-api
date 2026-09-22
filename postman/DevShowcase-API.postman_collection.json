@@ -1,0 +1,63 @@
+{
+  "info": {
+    "_postman_id": "devshowcase-api-collection",
+    "name": "DevShowcase API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    }
+  ],
+  "item": [
+    {
+      "name": "1 - Criar Profile",
+      "request": {
+        "method": "POST",
+        "header": [{"key":"Content-Type","value":"application/json"}],
+        "body": {"mode":"raw","raw":"{\n  \"name\": \"Maria Silva\",\n  \"email\": \"maria@email.com\",\n  \"bio\": \"Desenvolvedora Java e Spring Boot\"\n}"},
+        "url": {"raw":"{{baseUrl}}/api/profiles","host":["{{baseUrl}}"],"path":["api","profiles"]}
+      }
+    },
+    {
+      "name": "2 - Buscar Profile",
+      "request": {
+        "method": "GET",
+        "url": {"raw":"{{baseUrl}}/api/profiles/1","host":["{{baseUrl}}"],"path":["api","profiles","1"]}
+      }
+    },
+    {
+      "name": "3 - Criar Technology",
+      "request": {
+        "method": "POST",
+        "header": [{"key":"Content-Type","value":"application/json"}],
+        "body": {"mode":"raw","raw":"{\n  \"name\": \"Java\"\n}"},
+        "url": {"raw":"{{baseUrl}}/api/technologies","host":["{{baseUrl}}"],"path":["api","technologies"]}
+      }
+    },
+    {
+      "name": "4 - Listar Technologies",
+      "request": {
+        "method": "GET",
+        "url": {"raw":"{{baseUrl}}/api/technologies","host":["{{baseUrl}}"],"path":["api","technologies"]}
+      }
+    },
+    {
+      "name": "5 - Criar Project",
+      "request": {
+        "method": "POST",
+        "header": [{"key":"Content-Type","value":"application/json"}],
+        "body": {"mode":"raw","raw":"{\n  \"title\": \"Sistema de Biblioteca\",\n  \"description\": \"API para gerenciamento de livros e usuários.\",\n  \"repositoryUrl\": \"https://github.com/exemplo/biblioteca\",\n  \"deployUrl\": \"https://biblioteca.exemplo.com\",\n  \"profileId\": 1,\n  \"technologyIds\": [1]\n}"},
+        "url": {"raw":"{{baseUrl}}/api/projects","host":["{{baseUrl}}"],"path":["api","projects"]}
+      }
+    },
+    {
+      "name": "6 - Listar Projects",
+      "request": {
+        "method": "GET",
+        "url": {"raw":"{{baseUrl}}/api/projects","host":["{{baseUrl}}"],"path":["api","projects"]}
+      }
+    }
+  ]
+}
