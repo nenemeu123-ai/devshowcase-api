@@ -33,4 +33,8 @@ public class ProjectController {
     public ProjectResponse findById(@PathVariable Long id) {
         return service.findById(id);
     }
+    @PutMapping("/{id}/upvote")
+    public ProjectResponse upvote(@PathVariable Long id) {
+        return service.upvote(id);
+    }
 }

@@ -82,6 +82,25 @@ POST `/api/projects`
 
 GET `/api/projects`
 
+### Feedbacks
+
+POST `/api/projects/{projectId}/feedbacks`
+
+```json
+{
+  "comment": "Projeto muito bom!",
+  "rating": 5,
+  "projectId": 1
+}
+```
+
+GET `/api/projects/{projectId}/feedbacks`
+
+A avaliação deve estar entre 1 e 5.
+
+A média das avaliações é calculada automaticamente e retornada no campo `averageRating` do projeto.
+
+
 ## Observação
 
 Os IDs usados nos exemplos são criados conforme os registros inseridos no banco.

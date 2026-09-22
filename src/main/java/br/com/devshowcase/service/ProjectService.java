@@ -65,4 +65,18 @@ public class ProjectService {
 
         return ProjectResponse.fromEntity(project);
     }
+    public ProjectResponse upvote(Long id) {
+        Project project = projectRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Projeto não encontrado: " + id
+                        )
+                );
+
+        project.setUpvotes(project.getUpvotes() + 1);
+
+        Project saved = projectRepository.save(project);
+
+        return ProjectResponse.fromEntity(saved);
+    }
 }

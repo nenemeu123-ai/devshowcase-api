@@ -22,6 +22,11 @@ public class Project {
     private String repositoryUrl;
 
     private String deployUrl;
+    @Column(nullable = false)
+    private Double averageRating = 0.0;
+
+    @Column(nullable = false)
+    private Integer upvotes = 0;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "profile_id", nullable = false)
@@ -46,6 +51,8 @@ public class Project {
     public String getDescription() { return description; }
     public String getRepositoryUrl() { return repositoryUrl; }
     public String getDeployUrl() { return deployUrl; }
+    public Double getAverageRating() { return averageRating; }
+    public Integer getUpvotes() { return upvotes; }
     public Profile getProfile() { return profile; }
     public List<Technology> getTechnologies() { return technologies; }
     public List<Feedback> getFeedbacks() { return feedbacks; }
@@ -55,6 +62,13 @@ public class Project {
     public void setDescription(String description) { this.description = description; }
     public void setRepositoryUrl(String repositoryUrl) { this.repositoryUrl = repositoryUrl; }
     public void setDeployUrl(String deployUrl) { this.deployUrl = deployUrl; }
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public void setUpvotes(Integer upvotes) {
+        this.upvotes = upvotes;
+    }
     public void setProfile(Profile profile) { this.profile = profile; }
     public void setTechnologies(List<Technology> technologies) { this.technologies = technologies; }
     public void setFeedbacks(List<Feedback> feedbacks) { this.feedbacks = feedbacks; }

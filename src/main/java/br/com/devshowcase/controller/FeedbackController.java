@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/feedbacks")
+@RequestMapping("/api/projects")
 public class FeedbackController {
 
     private final FeedbackService service;
@@ -19,15 +19,17 @@ public class FeedbackController {
         this.service = service;
     }
 
-    @PostMapping
+    @PostMapping("/{id}/feedbacks")
     @ResponseStatus(HttpStatus.CREATED)
     public FeedbackResponse create(
+            @PathVariable Long id,
             @Valid @RequestBody FeedbackRequest request) {
-        return service.create(request);
+
+        return service.create(id, request);
     }
 
-    @GetMapping
-    public List<FeedbackResponse> findAll() {
-        return service.findAll();
+    @GetMapping("/{id}/feedbacks")
+    public List<FeedbackResponse> findAll(@PathVariable Long id) {
+        return service.findAll(id);
     }
 }

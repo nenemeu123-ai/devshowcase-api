@@ -23,13 +23,10 @@ public class FeedbackService {
         this.projectRepository = projectRepository;
     }
 
-    public FeedbackResponse create(FeedbackRequest request) {
-
-        Project project = projectRepository.findById(request.projectId())
-                .orElseThrow(() ->
+    public FeedbackResponse create(Long id, FeedbackRequest request) {
+        Project project = projectRepository.findById(id)                .orElseThrow(() ->
                         new ResourceNotFoundException(
-                                "Projeto não encontrado: " + request.projectId()
-                        )
+                                "Projeto não encontrado: " + id                        )
                 );
 
         Feedback feedback = new Feedback();
@@ -39,12 +36,23 @@ public class FeedbackService {
 
         Feedback saved = feedbackRepository.save(feedback);
 
+        double average = feedbackRepository.findAll()
+                .stream()
+                .filter(f -> f.getProject().getId().equals(project.getId()))
+                .mapToInt(Feedback::getRating)
+                .average()
+                .orElse(0.0);
+
+        project.setAverageRating(average);
+        projectRepository.save(project);
+
         return toResponse(saved);
     }
 
-    public List<FeedbackResponse> findAll() {
+    public List<FeedbackResponse> findAll(Long id) {
         return feedbackRepository.findAll()
                 .stream()
+                .filter(feedback -> feedback.getProject().getId().equals(id))
                 .map(this::toResponse)
                 .toList();
     }
