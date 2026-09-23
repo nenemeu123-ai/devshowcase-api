@@ -6,8 +6,9 @@ import br.com.devshowcase.service.ProjectService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/api/projects")
@@ -25,8 +26,11 @@ public class ProjectController {
     }
 
     @GetMapping
-    public List<ProjectResponse> findAll() {
-        return service.findAll();
+    public Page<ProjectResponse> findAll(
+            @RequestParam(required = false) String technology,
+            Pageable pageable) {
+
+        return service.findAll(technology, pageable);
     }
 
     @GetMapping("/{id}")

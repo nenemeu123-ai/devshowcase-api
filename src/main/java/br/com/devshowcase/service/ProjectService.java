@@ -10,6 +10,8 @@ import br.com.devshowcase.repository.ProfileRepository;
 import br.com.devshowcase.repository.ProjectRepository;
 import br.com.devshowcase.repository.TechnologyRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -50,11 +52,22 @@ public class ProjectService {
         return ProjectResponse.fromEntity(projectRepository.save(project));
     }
 
-    public List<ProjectResponse> findAll() {
-        return projectRepository.findAll().stream()
-            .map(ProjectResponse::fromEntity)
-            .toList();
+    public Page<ProjectResponse> findAll(String technology, Pageable pageable) {
+
+        if (technology != null && !technology.isBlank()) {
+            return projectRepository
+                    .findDistinctByTechnologies_NameContainingIgnoreCase(
+                            technology,
+                            pageable
+                    )
+                    .map(ProjectResponse::fromEntity);
+        }
+
+        return projectRepository
+                .findAll(pageable)
+                .map(ProjectResponse::fromEntity);
     }
+
     public ProjectResponse findById(Long id) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() ->
