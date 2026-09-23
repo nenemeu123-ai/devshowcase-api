@@ -11,6 +11,7 @@ public record ProjectResponse(
     String deployUrl,
     Long profileId,
     Double averageRating,
+    Integer upvotes,
     List<TechnologyResponse> technologies
 ) {
     public static ProjectResponse fromEntity(Project p) {
@@ -21,7 +22,7 @@ public record ProjectResponse(
             p.getRepositoryUrl(),
             p.getDeployUrl(),
             p.getProfile().getId(),
-                p.getAverageRating(),
+                p.getAverageRating(),p.getUpvotes(),
             p.getTechnologies().stream().map(TechnologyResponse::fromEntity).toList()
         );
     }
